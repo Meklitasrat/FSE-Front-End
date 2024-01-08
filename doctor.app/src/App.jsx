@@ -5,10 +5,11 @@ import { Footer } from "./components/Footer";
 import { Home } from "./components/pages/Home";
 import { About_us } from "./components/pages/About_us";
 import { Find_doctor } from "./components/pages/Find_doctor";
-import { Contact } from "./components/pages/Contact";
 import { Login } from "./components/pages/Login";
 import { Signup } from "./components/pages/Signup";
 import { Route, Routes } from "react-router-dom";
+import { Contact } from "./components/pages/Contact";
+import { Get_appointment } from "./components/pages/Get_appointment";
 
 const App = () => (
   <>
@@ -22,6 +23,7 @@ const App = () => (
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Signup" element={<Signup />} />
+        <Route path="/Get_appointment" element={<Get_appointment />} />
       </Routes>
     </main>
     <Footer />

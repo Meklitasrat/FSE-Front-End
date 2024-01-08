@@ -1,66 +1,114 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Home } from "./pages/Home";
-import { About_us } from "./pages/About_us";
-import { Find_doctor } from "./pages/Find_doctor";
-import { Contact } from "./pages/Contact";
-import { Login } from "./pages/Login";
+import { Link, NavLink } from "react-router-dom";
+import { BiMenu } from "react-icons/bi";
+import { useEffect, useRef } from "react";
 
 const navLinks = [
   {
-    path: "Home",
-    display: <Home />,
+    path: "/",
+    display: "Home",
   },
   {
-    path: "About_us",
-    display: <About_us />,
+    path: "/about_us",
+    display: "About Us",
   },
   {
-    path: "Find_doctor",
-    display: <Find_doctor />,
+    path: "/find_doctor",
+    display: "Find a Doctor",
   },
   {
-    path: "Contact",
-    display: <Contact />,
-  },
-  {
-    path: "Login",
-    display: <Login />,
+    path: "/contact",
+    display: "Contact",
   },
 ];
+
 export const NavBar = () => {
+  const headerRef = useRef(null);
+  const menuRef = useRef(null);
+
+  const handleStickyHeader = () => {
+    window.addEventListener("scroll", () => {
+      if (
+        document.body.scrollTop > 80 ||
+        document.documentElement.scrollTop > 80
+      ) {
+        headerRef.current.classList.add("sticky__header");
+      } else {
+        headerRef.current.classList.remove("sticky__header");
+      }
+    });
+  };
+
+  useEffect(() => {
+    handleStickyHeader();
+    return () => window.removeEventListener("scroll", handleStickyHeader);
+  });
+
+  const toggleMenu = () => {
+    menuRef.current.classList.toggle("show__menu");
+  };
+
   return (
-    <>
-      <header className="bg-gray-800 text-white">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl text-blue-400 font-bold">
-                <strong>Doctor</strong> Appointment
-              </h1>
-              <img
-                src="https://i.ibb.co/714F2qr/photo-2024-01-04-16-02-50.jpg"
-                alt="Logo Image"
-                className="mt-2 h-20 w-20 rounded-full"
-              />
+    <header className="header flex items-center" ref={headerRef}>
+      <div className="container">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <div className="flex">
+            <img
+              src="https://i.ibb.co/714F2qr/photo-2024-01-04-16-02-50.jpg"
+              alt="Logo Image"
+              className="mt-2 h-20 w-20 rounded-full"
+            />
+            <h1 className="text-2xl text-blue-400 font-bold p-5">
+              <strong>Efoyta</strong> Doctor
+              <br /> Appointment
+            </h1>
+          </div>
+
+          {/* Menu */}
+          <div className="navigation" ref={menuRef} onClick={toggleMenu}>
+            <ul className="menu flex items-center gap-[2.7rem]">
+              {navLinks.map((link, index) => (
+                <li key={index}>
+                  <NavLink
+                    to={link.path}
+                    className={(navClass) =>
+                      navClass.isActive
+                        ? "text-primaryColor text-[16px] leading-7 font-[600]"
+                        : "text-textColor text-[16px] leading-7 font-[500] hover:text-primaryColor"
+                    }
+                  >
+                    {link.display}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* nav Right */}
+          <div className="flex items-center gap-4">
+            <div className="hidden">
+              <Link to="/">
+                <figure className="w-[35px] h-[35] rounded-full">
+                  <img
+                    src="https://i.ibb.co/714F2qr/photo-2024-01-04-16-02-50.jpg"
+                    className="w-full rounded-full"
+                    alt=""
+                  />
+                </figure>
+              </Link>
             </div>
-            <div className="navigations">
-              <ul className="flex items-center gap-10">
-                {navLinks.map((link, index) => (
-                  <li key={index}>
-                    <Link
-                      to={link.path}
-                      className="text-white hover:text-blue-400 font-medium"
-                    >
-                      {link.display}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+
+            <Link to="/Login " className="login">
+              <button className="bg-primaryColor py-2 px-6 text-white font-[600] h-[44px] flex items-center justify-center rounded-[50px]">
+                Login
+              </button>
+            </Link>
+            <span className="md:hidden" onClick={toggleMenu}>
+              <BiMenu className="w-6 h-6 cursor-pointer" />
+            </span>
           </div>
         </div>
-      </header>
-    </>
+      </div>
+    </header>
   );
 };
