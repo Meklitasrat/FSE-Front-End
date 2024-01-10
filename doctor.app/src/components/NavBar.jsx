@@ -58,9 +58,10 @@ export const NavBar = () => {
               alt="Logo Image"
               className="mt-2 h-20 w-20 rounded-full"
             />
-            <h1 className="text-2xl text-blue-400 font-bold p-5">
-              <strong>Efoyta</strong> Doctor
-              <br /> Appointment
+            <h1 className="text-2xl font-bold p-5">
+              <h1 className="w-full text-3xl font-bold text-teal-900">
+                Efoyta
+              </h1>
             </h1>
           </div>
 
