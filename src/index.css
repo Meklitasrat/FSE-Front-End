@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+  background: url('../src/assets/try3.jpg');
+}
+.hover-color {
+  background: linear-gradient(to right, #8b5cf6, #ff7bac);
+}
